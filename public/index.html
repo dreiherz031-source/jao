@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body style="text-align:center;font-family:Arial;margin-top:60px;">
+
+<h2>💌 Pwede ko manguyab Ms. Andojar?</h2>
+
+<input id="answer" placeholder="YES or NO">
+<br><br>
+
+<input id="reason" placeholder="Why?">
+<br><br>
+
+<button onclick="send()">Send</button>
+
+<script>
+function send(){
+    fetch("/submit", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+            answer: document.getElementById("answer").value,
+            reason: document.getElementById("reason").value
+        })
+    });
+
+    alert("Sent 💌");
+}
+</script>
+
+</body>
+</html>
