@@ -1,12 +1,11 @@
 const express = require("express");
 const fs = require("fs");
-
 const app = express();
 
 app.use(express.json());
 app.use(express.static("public"));
 
-// save response
+/* ========================= SAVE RESPONSE ========================= */
 app.post("/submit", (req, res) => {
     const data = req.body;
 
@@ -20,10 +19,12 @@ app.post("/submit", (req, res) => {
 
     fs.writeFileSync("responses.json", JSON.stringify(responses, null, 2));
 
-    res.json({ message: "Saved successfully" });
+    console.log("📩 New Response:", data);
+
+    res.json({ message: "Saved successfully 💌" });
 });
 
-// view responses
+/* ========================= VIEW RESPONSES ========================= */
 app.get("/responses", (req, res) => {
     if (!fs.existsSync("responses.json")) {
         return res.json([]);
@@ -33,6 +34,9 @@ app.get("/responses", (req, res) => {
     res.json(data);
 });
 
-app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000");
+/* ========================= START SERVER ========================= */
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log("Server running at http://localhost:" + PORT);
 });
